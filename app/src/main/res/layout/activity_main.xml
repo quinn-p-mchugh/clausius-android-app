@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="quinn_mchugh.clausius.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/property_table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="271dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="25dp">
+
+            <TextView
+                android:id="@+id/substanceTitle"
+                android:fontFamily="@font/work_sans_light"
+                android:text="@string/substanceName"
+                android:textColor="@color/Gray"
+                android:textSize="50sp" />
+
+            <TableRow android:background="@drawable/borderbottom">
+
+                <TextView
+                    android:id="@+id/temperatureAbbr"
+                    android:layout_width="31dp"
+                    android:text="@string/temperatureAbbr"
+                    android:textColor="@color/darkGray" />
+
+                <TextView
+                    android:id="@+id/temperature"
+                    android:layout_width="70dp"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/temperatureUnit"
+                    android:text="@string/temperatureUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+            <TableRow android:background="@drawable/borderbottom">
+
+                <TextView
+                    android:id="@+id/pressureAbbr"
+                    android:text="@string/pressureAbbr"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/pressure"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/pressureUnit"
+                    android:text="@string/pressureUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+            <TableRow android:background="@drawable/borderbottom">
+
+                <TextView
+                    android:id="@+id/specificVolumeAbbr"
+                    android:text="@string/specificVolumeAbbr"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/specificVolume"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/specificVolumeUnit"
+                    android:text="@string/specificVolumeUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+            <TableRow android:background="@drawable/borderbottom">
+
+                <TextView
+                    android:id="@+id/internalEnergyAbbr"
+                    android:text="@string/internalEnergyAbbr"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/internalEnergy"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/internalEnergyUnit"
+                    android:text="@string/internalEnergyUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+            <TableRow android:background="@drawable/borderbottom">
+
+                <TextView
+                    android:id="@+id/enthalpyAbbr"
+                    android:text="@string/enthalpyAbbr"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/enthalpy"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/enthalpyUnit"
+                    android:text="@string/enthalpyUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+            <TableRow android:background="@drawable/borderbottom">
+
+                <TextView
+                    android:id="@+id/entropyAbbr"
+                    android:text="@string/entropyAbbr"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/entropy"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/entropyUnit"
+                    android:text="@string/entropyUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+            <TableRow
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/qualityAbbr"
+                    android:text="@string/qualityAbbr"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/quality"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+                <TextView
+                    android:id="@+id/qualityUnit"
+                    android:text="@string/qualityUnit"
+                    android:textColor="@color/darkGray"
+                    android:textSize="@dimen/propertyTableTextSize" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/cursor_icon"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/cursor_icon"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/cursor_icon_small"
+        android:layout_width="12.5dp"
+        android:layout_height="12.5dp"
+        android:src="@drawable/cursor_icon_small"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/cursor_icon_transition"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/cursor_icon_transition"
+        android:visibility="invisible" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/diagram_selection_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        app:menu_colorNormal="@color/lightGray"
+        app:menu_colorPressed="#C0C0C0"
+        app:menu_openDirection="up"
+        app:menu_fab_size="mini"
+        app:menu_labels_position="right"
+        app:menu_labels_colorNormal="@android:color/white"
+        app:menu_labels_colorPressed="@android:color/white"
+        app:menu_labels_textColor="@color/darkGray"
+        app:menu_labels_showShadow="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/t_s_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_label="@string/T_s_chart"
+            android:src="@drawable/ic_multiline_chart_white_24dp"
+            app:fab_colorNormal="@color/orange"
+            app:fab_colorPressed="@color/orange" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/p_h_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_label="@string/P_h_chart"
+            android:src="@drawable/ic_multiline_chart_white_24dp"
+            app:fab_colorNormal="@color/orange"
+            app:fab_colorPressed="@color/orange" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/p_v_menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_label="@string/P_v_chart"
+            android:src="@drawable/ic_multiline_chart_white_24dp"
+            app:fab_colorNormal="@color/orange"
+            app:fab_colorPressed="@color/orange" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+</RelativeLayout>

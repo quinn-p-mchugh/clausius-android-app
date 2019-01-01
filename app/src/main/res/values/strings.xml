@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Clausius</string>
+    <string name="t_s_diagram">T-s Diagram</string>
+    <string name="substanceName">Water</string>
+
+    <!-- Property Abbreviations -->
+    <string name="temperatureAbbr">T</string>
+    <string name="pressureAbbr">P</string>
+    <string name="specificVolumeAbbr">v</string>
+    <string name="internalEnergyAbbr">u</string>
+    <string name="enthalpyAbbr">h</string>
+    <string name="entropyAbbr">s</string>
+    <string name="qualityAbbr">x</string>
+
+    <!-- Default Property Value -->
+    <string name="defaultValue">       </string>
+
+    <!-- Property Units -->
+    <string name="temperatureUnit">°C</string>
+    <string name="pressureUnit">MPa</string>
+    <string name="specificVolumeUnit">m³/kg</string>
+    <string name="internalEnergyUnit">kJ/kg</string>
+    <string name="enthalpyUnit">kJ/kg</string>
+    <string name="entropyUnit">kJ/kg⋅K</string>
+    <string name="qualityUnit">%</string>
+
+    <!-- Chart Menu Options -->
+    <string name="T_s_chart">T-s</string>
+    <string name="P_h_chart">P-h</string>
+    <string name="P_v_chart">P-v</string>
+
+</resources>

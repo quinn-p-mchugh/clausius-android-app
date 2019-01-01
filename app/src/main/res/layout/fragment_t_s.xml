@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="quinn_mchugh.clausius.Fragments.T_s_Fragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end">
+
+        <ImageView
+            android:id="@+id/t_s_diagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/t_s_diagram"
+            android:scaleType="fitStart"
+            android:src="@drawable/t_s_chart" />
+
+    </RelativeLayout>
+
+</FrameLayout>
