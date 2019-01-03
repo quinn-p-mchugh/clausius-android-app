@@ -4,19 +4,23 @@ package quinn_mchugh.clausius.States;
  * Created by Quinn McHugh on 10/20/2018.
  */
 public class SatState {
-    private double v_f;
-    private double v_g;
-    private double u_f;
-    private double u_g;
-    private double h_f;
-    private double h_g;
-    private double s_f;
-    private double s_g;
+    private double v_f;     // [m^3/kg]     Specific volume of the saturated liquid
+    private double v_g;     // [m^3/kg]     Specific volume of the saturated vapor
+    private double u_f;     // [kJ/kg]      Internal energy of the saturated liquid
+    private double u_g;     // [kJ/kg]      Internal energy of the saturated vapor
+    private double h_f;     // [kJ/kg]      Enthalpy of the saturated liquid
+    private double h_g;     // [kJ/kg]      Enthalpy of the saturated vapor
+    private double s_f;     // [kJ/kg/K]    Entropy of the saturated liquid
+    private double s_g;     // [kJ/kg/K]    Entropy of the saturated vapor
 
-    private double T;
-    private double P;
+    private double T;   // [°C] Temperature
+    private double P;   // [kPa] Pressure
 
+    /**
+     * Required public constructor.
+     */
     public SatState() {
+
     }
 
     public double getV_f() {

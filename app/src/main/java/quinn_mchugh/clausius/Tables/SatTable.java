@@ -74,7 +74,8 @@ public class SatTable extends CSVFile {
     }
 
     /**
-     * Iterates through a list and returns the index of an element in a list who's value is the next value below the user-defined value.
+     * Returns the index of an element in a list who's value is the next value
+     * below the user-defined value.
      *
      * @param temperature The user-specified temperature used for comparison.
      * @return The index of an element in the list who's value is the next value below the user-defined value.
@@ -95,19 +96,11 @@ public class SatTable extends CSVFile {
         return i;
     }
 
-    /**for (int i = 1; i < states.size(); i++) {
-        if (states.get(i).getT() < temperature) {
-            return i;
-        }
-        return null;
-    }*/
-
-
     /**
      * Calculates the pressure at the same state as a user-specified temperature using values from a CSV file
      *_
      * @param T The temperature determined from the user's touch
-     * @return The pressure in [kPa].
+     * @return The pressure in [MPa].
      */
     public double calculatePressure(double T) {
         SatState lowerState = findLowerState(T);

@@ -6,16 +6,14 @@ import java.io.InputStreamReader;
 
 import quinn_mchugh.clausius.Tables.CSVFile;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 /**
- * Represents the SatTable
+ * Represents the SuperTable
  */
 public class SuperTable extends CSVFile {
 
-    private Double[] pressures;
-    private Double[] temperatures;
-    private Double[][] gridArr;
+    private Double[] pressures;     // The pressure values of the CSV file.
+    private Double[] temperatures;  // The temperature values of the CSV file
+    private Double[][] gridArr;     // The grid values of the CSV file.
 
     public SuperTable(InputStream inputStream) {
         super(inputStream);
@@ -37,6 +35,7 @@ public class SuperTable extends CSVFile {
         return gridArr;
     }
 
+    // TODO: Write a program to parse CSV files and make them into Java array format, such that the super and saturated tables can be hardcoded into the application, as opposed to read from a CSV file each time the application loads.
     /**
      * Reads data from the SatTable CSV file and stores it in appropriate data structures.
      */
@@ -57,7 +56,6 @@ public class SuperTable extends CSVFile {
                 int row = 0;
                 while ((line = reader.readLine()) != null) {
                     Double[] rowValues = toDoubleArray(line.split(","));
-
 
                     temperatures[row] = rowValues[0];
                     for (int i = 1; i < rowValues.length; i++) {
@@ -80,18 +78,47 @@ public class SuperTable extends CSVFile {
     }
 
     /**
-     * Finds the temperature value in the list of temperature values that
-     * is closest to the specified temperature.
+     * Returns the index of an element in an array who's value is the nearest
+     * value that is greater than the user-specified value.
      *
-     * @param temperature The specified temperature
-     * @return The index of the closest temperature that is greater than the specified temperature
+     * @param value The specified value
+     * @param array A one dimensional array sorted in ascending order to be
+     *      searched through
+     * @return The index of the element in the array that is the nearest value
      */
-    private int findNearestTemperatureIndex(double temperature) {
-        return (int) Math.round(temperature) - 1;
+    private int findHigherValueIndex(double value, double[] array) {
+        int i = 0;
+        while (array[i] < value) {
+            i++;
+        }
+        return i;
     }
 
+
+    /**
+     * Finds the temperature value in the temperatures array that is closest to
+     * but not greater than the specified temperature.
+     *
+     * @param temperature The specified temperature
+     */
+    private double findLowerTemperature(double temperature) {
+        //return temperatures[findLowerTemperatureIndex(temperature)];
+        return 0;
+    }
+
+
+    /**
+     * Finds the index of a temperature value in the temperatures array
+     * that is the closest to but not great not greater than the specified
+     * temperature.
+     *
+     * @param temperature
+     * @param entropy
+     * @return
+     */
     private Integer findHigherEntropyIndex(double temperature, double entropy) {
-        int row = findNearestTemperatureIndex(temperature);
+        //int row = findNearestTemperatureIndex(temperature);
+        int row = 0;
         int col = 1;
         while (gridArr[row][col] != null) {
             if (gridArr[row][col] < entropy && gridArr[row][col-1] > entropy) {
@@ -107,7 +134,8 @@ public class SuperTable extends CSVFile {
     }
 
     private double calculatePressure(double temperature, double entropy) {
-        int row = findNearestTemperatureIndex(temperature);
+        ///int row = findNearestTemperatureIndex(temperature);
+        int row = 0;
 
         int lowerColumn = findLowerEntropyIndex(temperature, entropy);
         int higherColumn = findHigherEntropyIndex(temperature, entropy);
