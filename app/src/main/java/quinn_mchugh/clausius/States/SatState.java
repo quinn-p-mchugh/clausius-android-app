@@ -1,23 +1,23 @@
 package quinn_mchugh.clausius.States;
 
 /**
- * Created by Quinn McHugh on 10/20/2018.
+ * Represents a thermodynamic state in the saturated vapor dome of a T-s diagram. Contains a set of thermodynamic properties associated with the state.
  */
 public class SatState {
-    private double v_f;     // [m^3/kg]     Specific volume of the saturated liquid
-    private double v_g;     // [m^3/kg]     Specific volume of the saturated vapor
-    private double u_f;     // [kJ/kg]      Internal energy of the saturated liquid
-    private double u_g;     // [kJ/kg]      Internal energy of the saturated vapor
-    private double h_f;     // [kJ/kg]      Enthalpy of the saturated liquid
-    private double h_g;     // [kJ/kg]      Enthalpy of the saturated vapor
-    private double s_f;     // [kJ/kg/K]    Entropy of the saturated liquid
-    private double s_g;     // [kJ/kg/K]    Entropy of the saturated vapor
+    private double v_f;     // [m^3/kg]     Specific volume of a saturated liquid at the given state
+    private double v_g;     // [m^3/kg]     Specific volume of a saturated vapor at the given state
+    private double u_f;     // [kJ/kg]      Internal energy of a saturated liquid at the given state
+    private double u_g;     // [kJ/kg]      Internal energy of a saturated vapor at the given state
+    private double h_f;     // [kJ/kg]      Enthalpy of a saturated liquid at the given state
+    private double h_g;     // [kJ/kg]      Enthalpy of a saturated vapor  at the given state
+    private double s_f;     // [kJ/kg/K]    Entropy of a saturated liquid at the given state
+    private double s_g;     // [kJ/kg/K]    Entropy of a saturated vapor at the given state
 
     private double T;   // [°C] Temperature
     private double P;   // [kPa] Pressure
 
     /**
-     * Required public constructor.
+     * Required public constructor for SatState class.
      */
     public SatState() {
 

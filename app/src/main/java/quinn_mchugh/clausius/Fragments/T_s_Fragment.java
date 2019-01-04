@@ -36,7 +36,7 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
     private SuperVTable superVTable;
 
     /**
-     * Required public constructor.
+     * Required public constructor for T_s_Fragment class.
      */
     public T_s_Fragment() {
 
@@ -104,34 +104,36 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
             ((MainActivity) getActivity()).displayEntropy(entropy);
         }
 
+        double quality = 0;
+        double pressure = 0;
+        double specificVolume = 0;
+        double internalEnergy = 0;
+        double enthalpy = 0;
         // TODO: Change "temperature >= 0.13" to "temperature >= 0"
         // TODO: and add Sat Stable values for when temperature = 0
         if (temperature >= 0.13 && temperature < 374) {
+            /* User's touch is within the saturated vapor dome... */
             if (inSaturatedRegion(temperature, entropy)) {
-                double quality;
-                /* Users touch is within compressed liquid region... */
-                if (inCompressedLiquidRegion(temperature, entropy)) {
-                    quality = 0;
-                    ((MainActivity) getActivity()).displayQuality(quality);
-                }
-                /* User's touch is within the saturated vapor dome... */
-                else {
-                    quality = satTable.calculateQuality(temperature, entropy);
-                    ((MainActivity) getActivity()).displayQuality(quality);
-                }
-                double pressure = satTable.calculatePressure(temperature);
-                ((MainActivity) getActivity()).displayPressure(pressure);
-
-                double specificVolume = satTable.calculateSpecificVolume(temperature, quality);
-                ((MainActivity) getActivity()).displaySpecificVolume(specificVolume);
-
-                double internalEnergy = satTable.calculateInternalEnergy(temperature, quality);
-                ((MainActivity) getActivity()).displayInternalEnergy(internalEnergy);
-
-                double enthalpy = satTable.calculateEnthalpy(temperature, quality);
-                ((MainActivity) getActivity()).displayEnthalpy(enthalpy);
+                quality = satTable.calculateQuality(temperature, entropy);
             }
+            /* Users touch is within compressed liquid region... */
+            if (inCompressedLiquidRegion(temperature, entropy)) {
+                quality = 0;
+            }
+            pressure = satTable.calculatePressure(temperature);
+            specificVolume = satTable.calculateSpecificVolume(temperature, quality);
+            internalEnergy = satTable.calculateInternalEnergy(temperature, quality);
+            enthalpy = satTable.calculateEnthalpy(temperature, quality);
         }
+        else {
+            pressure = superSTable.calculatePressure(temperature, entropy);
+        }
+
+        ((MainActivity) getActivity()).displayQuality(quality);
+        ((MainActivity) getActivity()).displayPressure(pressure);
+        ((MainActivity) getActivity()).displaySpecificVolume(specificVolume);
+        ((MainActivity) getActivity()).displayInternalEnergy(internalEnergy);
+        ((MainActivity) getActivity()).displayEnthalpy(enthalpy);
     }
 
     /**

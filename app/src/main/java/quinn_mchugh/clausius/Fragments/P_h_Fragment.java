@@ -25,7 +25,7 @@ public class P_h_Fragment extends Fragment implements View.OnTouchListener {
     private static final double MIN_PRESSURE = 0.01;    // [MPa] The minimum pressure value on the P-h diagram
 
     /**
-     * Required public constructor.
+     * Required public constructor for P_h_Fragment class.
      */
     public P_h_Fragment() {
 
@@ -73,7 +73,7 @@ public class P_h_Fragment extends Fragment implements View.OnTouchListener {
      * @param view The view that is currently being displayed
      * @param motionEvent The motion event created when the user touches the screen
      */
-    public void setPropertyValues(View view, MotionEvent motionEvent) {
+    private void setPropertyValues(View view, MotionEvent motionEvent) {
         double enthalpy = calculateEnthalpy(view, motionEvent);
         double pressure = calculatePressure(view, motionEvent);
 

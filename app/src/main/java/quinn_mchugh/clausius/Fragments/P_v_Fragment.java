@@ -25,7 +25,7 @@ public class P_v_Fragment extends Fragment implements View.OnTouchListener {
     private static final double MIN_PRESSURE = 0.01;            // [MPa] The maximum pressure value on the P-v diagram
 
     /**
-     * Required public constructor.
+     * Required public constructor for P_v_Fragment class.
      */
     public P_v_Fragment() {
 

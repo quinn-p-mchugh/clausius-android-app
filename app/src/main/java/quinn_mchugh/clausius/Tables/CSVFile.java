@@ -1,24 +1,23 @@
 package quinn_mchugh.clausius.Tables;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Represents a CSVFile that parses CSV files into
+ * Represents a typical CSV file.
  */
 public class CSVFile {
 
     protected InputStream inputStream;
-    private HashMap<String, List<Double>> data;
+    //private HashMap<String, List<Double>> data;
 
+    /**
+     * Required public constructor for CSVFile class.
+     *
+     * @param inputStream The input stream used to read the CSV file
+     */
     public CSVFile(InputStream inputStream) {
         this.inputStream = inputStream;
-        //data = readDataWithHeaders();
+        //data = readData();
     }
 
     /**
@@ -62,6 +61,13 @@ public class CSVFile {
         return data;
     }*/
 
+    /**
+     * Converts a array of strings to an array of doubles by attempting to parsing each element to
+     * a double.
+     *
+     * @param strArr An array of strings to be converted
+     * @return An array of doubles
+     */
     public Double[] toDoubleArray(String[] strArr) {
         Double[] dblArr = new Double[strArr.length];
         for (int i = 0; i < strArr.length; i++) {
@@ -69,27 +75,18 @@ public class CSVFile {
                 dblArr[i] = Double.parseDouble(strArr[i]);
             }
             catch (NumberFormatException e) {
-                // String is not parsable
+                /* String is not parsable */
             }
         }
         return dblArr;
     }
 
-    public Integer getIndexOfHeader(String header, String[] headers) {
-        int i = 0;
-        for (String str : headers) {
-            if (str.equals(header)) {
-                return i;
-            }
-            i++;
-        }
-        return null;
-    }
-
     /**
-     * Uses proportions to estimate the value of a thermodynamic property at a desired thermodynamic
-     * state, using the value of another property of that state and two sets of property values
-     * at two other states that are immediately lower and higher than the desired state.
+     * Estimates the value of a thermodynamic property at an undefined state using linear interpolation.
+     * https://en.wikipedia.org/wiki/Linear_interpolation
+     *
+     * Property values of states directly above and below the undefined state are used to estimate
+     * the desired property value.
      *
      * @param prop1LowerVal The value of property 1 (e.g. temperature) at the lower state.
      * @param prop1HigherVal The value of property 1 (e.g. temperature) at the higher state.

@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import android.text.Layout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -45,25 +44,31 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView entropy;
     private TextView quality;
 
+    /**
+     * Valid layout positions for the thermodynamic property table displayed on-screen.
+     */
     private enum LayoutPosition {
          LEFT, RIGHT
     }
 
+    /**
+     * Valid tags for fragments in the application.
+     */
     private enum FragmentTag {
         T_S_FRAGMENT, P_H_FRAGMENT, P_V_FRAGMENT
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         /* Initialize all fragments and start with the T-s fragment displayed. */
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, new P_v_Fragment(), "P_v_fragment");
-        fragmentTransaction.add(R.id.fragment_container, new P_h_Fragment(), "P_h_fragment");
-        fragmentTransaction.add(R.id.fragment_container, new T_s_Fragment(), "t_s_fragment").commit();
+        fragmentTransaction.add(R.id.fragment_container, new P_v_Fragment(), FragmentTag.P_V_FRAGMENT.toString());
+        fragmentTransaction.add(R.id.fragment_container, new P_h_Fragment(), FragmentTag.P_H_FRAGMENT.toString());
+        fragmentTransaction.add(R.id.fragment_container, new T_s_Fragment(), FragmentTag.T_S_FRAGMENT.toString()).commit();
 
         /* Initialize click listeners for floating action button menu. */
         FloatingActionButton t_s_menu_button = findViewById(R.id.t_s_menu_button);
@@ -218,7 +223,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a fragment on the screen that possesses a user-specified tag.
+     * Displays a fragment on the screen that possesses a specified tag.
      *
      * @param fragmentTag The tag of the fragment that should be displayed.
      */
@@ -247,7 +252,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Moves a layout with a user-specified ID to a certain side of the screen.
+     * Moves a layout with a specified ID to a certain side of the screen.
      *
      * @param layoutId The ID of the layout that should be moved
      * @param layoutPosition The side of the screen that the layout should be moved to
