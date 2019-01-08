@@ -3,18 +3,24 @@ package quinn_mchugh.clausius.Tables;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import quinn_mchugh.clausius.States.SatState;
 
 /**
- * Represents the SatTable
+ * Represents the the sat_table CSV file.
  */
 public class SatTable extends CSVFile {
 
-    private ArrayList<SatState> states;
-    private String[] headers;
+    private ArrayList<SatState> states;     // The thermodynamic states stored on each row of the CSV file
 
+    /**
+     * Required public constructor for SatState class.
+     *
+     * @param inputStream The input stream used to read the sat_table CSV file
+     */
     public SatTable(InputStream inputStream) {
         super(inputStream);
         states = new ArrayList<>();
@@ -25,37 +31,52 @@ public class SatTable extends CSVFile {
         return states;
     }
 
-    public String[] getHeaders() {
-        return headers;
-    }
-
     /**
-     * Reads data from the SatTable CSV file and stores it in appropriate data structures.
+     * Reads data from the SatTable CSV file, stores each row as a thermodynamic state, and stores each state in a list of states.
      */
-    public void parseCSVFile() {
+    private void parseCSVFile() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
             try {
                 String line = reader.readLine();
-                headers = line.split(",");
+                String[] columnHeaders = line.split(",");
 
-                line = reader.readLine();   // Skip the line containing units
+                reader.readLine();   // Skip the line containing property units
 
                 while ((line = reader.readLine()) != null) {
                     Double[] rowValues = toDoubleArray(line.split(","));
 
                     SatState state = new SatState();
-                    state.setT(rowValues[getIndexOfHeader("T", headers)]);
-                    state.setP(rowValues[getIndexOfHeader("P", headers)]);
-                    state.setV_f(rowValues[getIndexOfHeader("v_f", headers)]);
-                    state.setV_g(rowValues[getIndexOfHeader("v_g", headers)]);
-                    state.setS_g(rowValues[getIndexOfHeader("s_g", headers)]);
-                    state.setU_f(rowValues[getIndexOfHeader("u_f", headers)]);
-                    state.setU_g(rowValues[getIndexOfHeader("u_g", headers)]);
-                    state.setH_f(rowValues[getIndexOfHeader("h_f", headers)]);
-                    state.setH_g(rowValues[getIndexOfHeader("h_g", headers)]);
-                    state.setS_f(rowValues[getIndexOfHeader("s_f", headers)]);
+
+                    double temperature = rowValues[Arrays.asList(columnHeaders).indexOf("T")];
+                    state.setT(temperature);
+
+                    double pressure = rowValues[Arrays.asList(columnHeaders).indexOf("P")];
+                    state.setP(pressure);
+
+                    double v_f = rowValues[Arrays.asList(columnHeaders).indexOf("v_f")];
+                    state.setV_f(v_f);
+
+                    double v_g = rowValues[Arrays.asList(columnHeaders).indexOf("v_g")];
+                    state.setV_g(v_g);
+
+                    double s_g = rowValues[Arrays.asList(columnHeaders).indexOf("s_g")];
+                    state.setS_g(s_g);
+
+                    double u_f = rowValues[Arrays.asList(columnHeaders).indexOf("u_f")];
+                    state.setU_f(u_f);
+
+                    double u_g = rowValues[Arrays.asList(columnHeaders).indexOf("u_g")];
+                    state.setU_g(u_g);
+
+                    double h_f = rowValues[Arrays.asList(columnHeaders).indexOf("h_f")];
+                    state.setH_f(h_f);
+
+                    double h_g = rowValues[Arrays.asList(columnHeaders).indexOf("h_g")];
+                    state.setH_g(h_g);
+
+                    double s_f = rowValues[Arrays.asList(columnHeaders).indexOf("s_f")];
+                    state.setS_f(s_f);
 
                     states.add(state);
                 }
@@ -66,7 +87,6 @@ public class SatTable extends CSVFile {
             finally {
                 reader.close();
             }
-            return;
         }
         catch (Exception e) {
             throw new RuntimeException("Failed to read CSV file.", e);
@@ -74,19 +94,12 @@ public class SatTable extends CSVFile {
     }
 
     /**
-     * Iterates through a list and returns the index of an element in a list who's value is the next value below the user-defined value.
+     * Finds the index of a state in the states list whose temperature
+     * value is the closest value greater than or equal to the specified temperature.
      *
-     * @param temperature The user-specified temperature used for comparison.
-     * @return The index of an element in the list who's value is the next value below the user-defined value.
+     * @param temperature The specified temperature
+     * @return The index of the state in the states list
      */
-    public SatState findLowerState(Double temperature) {
-        return states.get(findHigherStateIndex(temperature) - 1);
-    }
-
-    public SatState findHigherState(Double temperature) {
-        return states.get(findHigherStateIndex(temperature));
-    }
-
     private int findHigherStateIndex(Double temperature) {
         int i = 1;
         while (states.get(i).getT() < temperature) {
@@ -95,59 +108,127 @@ public class SatTable extends CSVFile {
         return i;
     }
 
-    /**for (int i = 1; i < states.size(); i++) {
-        if (states.get(i).getT() < temperature) {
-            return i;
-        }
-        return null;
-    }*/
-
+    /**
+     * Finds the index of a state in the states list whose temperature
+     * value is closest to but not above the specified temperature.
+     *
+     * @param temperature The specified temperature
+     * @return The index of the state in the states list
+     */
+    private int findLowerStateIndex(Double temperature) {
+        return findHigherStateIndex(temperature) - 1;
+    }
 
     /**
-     * Calculates the pressure at the same state as a user-specified temperature using values from a CSV file
+     * Finds a state in the states list whose temperature
+     * value is the first value above the specified temperature.
+     *
+     * @param temperature The specified temperature
+     * @return The desired state in the states list
+     */
+    private SatState findHigherState(Double temperature) {
+        return states.get(findHigherStateIndex(temperature));
+    }
+
+    /**
+     * Finds the state in the states list whose temperature
+     * value is closest to but not above the specified temperature.
+     *
+     * @param temperature The specified temperature
+     * @return The desired state in the states list
+     */
+    private SatState findLowerState(Double temperature) {
+        return states.get(findLowerStateIndex(temperature));
+    }
+
+    /**
+     * Calculates pressure at the specified temperature in the saturated vapor dome.
      *_
      * @param T The temperature determined from the user's touch
-     * @return The pressure in [kPa].
+     * @return The calculated pressure [MPa]
      */
     public double calculatePressure(double T) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);
-        double pressure = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getP(), higherState.getP());
-        return pressure / 1000; // [MPa]
+        double pressure = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getP(), higherState.getP());
+        return pressure / 1000;
     }
 
+    /**
+     * Calculates internal energy at the specified temperature and quality in the saturated vapor dome.
+     *_
+     * @param T The temperature at the location of the user's touch
+     * @param x The quality at the location of the user's touch
+     * @return The calculated internal energy [kJ/kg]
+     */
     public double calculateInternalEnergy(double T, double x) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);
-        double u_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getU_g(), higherState.getU_g());
-        double u_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getU_f(), higherState.getU_f());
+        double u_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getU_g(), higherState.getU_g());
+        double u_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getU_f(), higherState.getU_f());
         return u_f + x*(u_g - u_f);
     }
 
+    /**
+     * Calculates enthalpy at the specified temperature and quality in the saturated vapor dome.
+     *_
+     * @param T The temperature at the location of the user's touch
+     * @param x The quality at the location of the user's touch
+     * @return The calculated enthalpy [kJ/kg]
+     */
     public double calculateEnthalpy(double T, double x) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);
-        double h_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getH_g(), higherState.getH_g());
-        double h_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getH_f(), higherState.getH_f());
+        double h_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getH_g(), higherState.getH_g());
+        double h_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getH_f(), higherState.getH_f());
         return h_f + x*(h_g - h_f);
     }
 
+    /**
+     * Calculates quality at the specified temperature and entropy in the saturated vapor dome.
+     *_
+     * @param T The temperature at the location of the user's touch
+     * @param s The entropy at the location of the user's touch
+     * @return The calculated quality [in decimal form, not percentage form]
+     */
     public double calculateQuality(double T, double s) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);
-        double s_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getS_g(), higherState.getS_g());
-        double s_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getS_f(), higherState.getS_f());
+        double s_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getS_g(), higherState.getS_g());
+        double s_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getS_f(), higherState.getS_f());
         return (s - s_f) / (s_g - s_f);
     }
 
+    /**
+     * Calculates specific volume at the specified temperature and quality in the saturated vapor dome.
+     *_
+     * @param T The temperature at the location of the user's touch
+     * @param x The quality at the location of the user's touch
+     * @return The calculated specific volume [m^3/kg]
+     */
     public double calculateSpecificVolume(double T, double x) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);
-        double v_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getV_g(), higherState.getV_g());
-        double v_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T, lowerState.getV_f(), higherState.getV_f());
+        double v_g = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getV_g(), higherState.getV_g());
+        double v_f = estimatePropertyValue(lowerState.getT(), higherState.getT(), T,
+                lowerState.getV_f(), higherState.getV_f());
         return v_f + x*(v_g - v_f);
     }
 
+    /**
+     * Calculates entropy of a saturated vapor at the specified temperature in the saturated vapor dome.
+     *_
+     * @param T The temperature at the location of the user's touch
+     * @return The calculated entropy [kJ/kg/K]
+     */
     public double calculateS_g(double T) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);
@@ -155,6 +236,12 @@ public class SatTable extends CSVFile {
                 lowerState.getS_g(), higherState.getS_g());
     }
 
+    /**
+     * Calculates entropy of a saturated liquid at the specified temperature in the saturated vapor dome.
+     *_
+     * @param T The temperature at the location of the user's touch
+     * @return The calculated entropy [kJ/kg/K]
+     */
     public double calculateS_f(double T) {
         SatState lowerState = findLowerState(T);
         SatState higherState = findHigherState(T);

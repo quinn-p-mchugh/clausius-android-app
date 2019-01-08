@@ -3,28 +3,32 @@ package quinn_mchugh.clausius.Fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import java.text.DecimalFormat;
+import android.widget.ImageView;
 
 import quinn_mchugh.clausius.MainActivity;
 import quinn_mchugh.clausius.R;
 
 /**
- * Represents a fragment containing the P-h diagram.
+ * Represents a fragment containing the pressure-enthalpy (P-h) diagram.
  */
 public class P_h_Fragment extends Fragment implements View.OnTouchListener {
 
-    private static final double MAX_ENTHALPY = 4505;
-    private static final double MAX_PRESSURE = 1000;
-    private static final double MIN_PRESSURE = 0.01;
+    private static final double MAX_ENTHALPY = 4505;    // [kJ/kg] The maximum enthalpy value the P-h diagram
+    private static final double MIN_ENTHALPY = 0;       // [kJ/kg] The minimum enthalpy value on the P-h diagram
+    private static final double MAX_PRESSURE = 1000;    // [MPa] The maximum pressure value on the P-h diagram
+    private static final double MIN_PRESSURE = 0.01;    // [MPa] The minimum pressure value on the P-h diagram
 
+    /**
+     * Required public constructor for P_h_Fragment class.
+     */
     public P_h_Fragment() {
-        // Required empty public constructor
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -43,6 +47,7 @@ public class P_h_Fragment extends Fragment implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch(view.getId()) {
+            /* If the P-h diagram is touched... */
             case R.id.p_h_diagram:
                 setPropertyValues(view, motionEvent);
                 ((MainActivity) getActivity()).updateCursorLocation(motionEvent);
@@ -63,25 +68,38 @@ public class P_h_Fragment extends Fragment implements View.OnTouchListener {
     }
 
     /**
-     * Sets the values of the thermodynamic property table.
+     * Sets the values of the thermodynamic property table displayed on-screen.
      *
-     * @param view The view that is currently being displayed.
-     * @param motionEvent The motionEvent created when the user touches the screen.
+     * @param view The view that is currently being displayed
+     * @param motionEvent The motion event created when the user touches the screen
      */
-    public void setPropertyValues(View view, MotionEvent motionEvent) {
-        double xTouch = motionEvent.getX();
-        double yTouch = motionEvent.getY();
+    private void setPropertyValues(View view, MotionEvent motionEvent) {
+        double enthalpy = calculateEnthalpy(view, motionEvent);
+        double pressure = calculatePressure(view, motionEvent);
 
-        double viewWidth = view.getWidth();
-        double viewHeight = view.getHeight();
+        ((MainActivity) getActivity()).displayEnthalpy(enthalpy);
+        ((MainActivity) getActivity()).displayEnthalpy(pressure);
+    }
 
-        double enthalpy = (xTouch / viewWidth) * MAX_ENTHALPY;
-        double pressure = MIN_PRESSURE *Math.pow((MAX_PRESSURE / MIN_PRESSURE), ((viewHeight - yTouch) / viewHeight));
+    /**
+     * Returns an estimated enthalpy value based on the location of the user's touch.
+     *
+     * @param view The view that is currently being displayed
+     * @param motionEvent The motion event created when the user touches the screen
+     * @return The estimated enthalpy value
+     */
+    private double calculateEnthalpy(View view, MotionEvent motionEvent) {
+        return (motionEvent.getX() / view.getWidth()) * (MAX_ENTHALPY - MIN_ENTHALPY);
+    }
 
-        DecimalFormat numFormatLarge = new DecimalFormat("#0.0");
-        DecimalFormat numFormatSmall = new DecimalFormat("#0.000");
-
-        ((MainActivity) getActivity()).getEnthalpy().setText(String.valueOf(numFormatLarge.format(enthalpy)));
-        ((MainActivity) getActivity()).getPressure().setText(String.valueOf(numFormatSmall.format(pressure)));
+    /**
+     * Returns an estimated pressure value based on the location of the user's touch.
+     *
+     * @param view The view that is currently being displayed
+     * @param motionEvent The motion event created when the user touches the screen
+     * @return The estimated pressure value
+     */
+    private double calculatePressure(View view, MotionEvent motionEvent) {
+        return MIN_PRESSURE * Math.pow((MAX_PRESSURE / MIN_PRESSURE), ((view.getHeight() - motionEvent.getY()) / view.getHeight()));
     }
 }

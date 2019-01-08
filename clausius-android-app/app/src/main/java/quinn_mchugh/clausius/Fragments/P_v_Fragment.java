@@ -3,29 +3,32 @@ package quinn_mchugh.clausius.Fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import java.text.DecimalFormat;
+import android.widget.ImageView;
 
 import quinn_mchugh.clausius.MainActivity;
 import quinn_mchugh.clausius.R;
 
 /**
- * Represents a fragment containing the P-v diagram.
+ * Represents a fragment containing the pressure-specific volume (P-v) diagram.
  */
 public class P_v_Fragment extends Fragment implements View.OnTouchListener {
 
-    private static final double MAX_SPECIFIC_VOLUME = 37.5;
-    private static final double MIN_SPECIFIC_VOLUME = 0.001;
-    private static final double MAX_PRESSURE = 51.70;
-    private static final double MIN_PRESSURE = 0.01;
+    private static final double MAX_SPECIFIC_VOLUME = 37.5;     // [m^3/kg] The maximum specific volume value on the P-v diagram
+    private static final double MIN_SPECIFIC_VOLUME = 0.001;    // [m^3/kg] The minimum specific volume value on the P-v diagram
+    private static final double MAX_PRESSURE = 51.70;           // [MPa] The maximum pressure value on the P-v diagram
+    private static final double MIN_PRESSURE = 0.01;            // [MPa] The maximum pressure value on the P-v diagram
 
+    /**
+     * Required public constructor for P_v_Fragment class.
+     */
     public P_v_Fragment() {
-        // Required empty public constructor
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -44,7 +47,8 @@ public class P_v_Fragment extends Fragment implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch(view.getId()) {
-            case R.id.p_v_diagram:  // If the T-s diagram is touched...
+            /* If the P-v diagram is touched... */
+            case R.id.p_v_diagram:
                 setDiagramValues(view, motionEvent);
                 ((MainActivity) getActivity()).updateCursorLocation(motionEvent);
 
@@ -69,21 +73,33 @@ public class P_v_Fragment extends Fragment implements View.OnTouchListener {
      * @param view The view that is currently being displayed.
      * @param motionEvent The motionEvent created when the user touches the screen.
      */
-    public void setDiagramValues(View view, MotionEvent motionEvent) {
+    private void setDiagramValues(View view, MotionEvent motionEvent) {
+        double specificVolume = calculateSpecificVolume(view, motionEvent);
+        double pressure = calculatePressure(view, motionEvent);
 
-        double xTouch = motionEvent.getX();
-        double yTouch = motionEvent.getY();
+        ((MainActivity) getActivity()).displaySpecificVolume(specificVolume);
+        ((MainActivity) getActivity()).displayPressure(pressure);
+    }
 
-        double viewWidth = view.getWidth();
-        double viewHeight = view.getHeight();
+    /**
+     * Returns an estimated specific volume value based on the location of the user's touch.
+     *
+     * @param view The view that is currently being displayed
+     * @param motionEvent The motion event created when the user touches the screen
+     * @return The estimated specific volume value
+     */
+    private double calculateSpecificVolume(View view, MotionEvent motionEvent) {
+        return MIN_SPECIFIC_VOLUME * Math.pow((MAX_SPECIFIC_VOLUME / MIN_SPECIFIC_VOLUME), (motionEvent.getX() / view.getWidth()));
+    }
 
-        double specificVolume = MIN_SPECIFIC_VOLUME *Math.pow((MAX_SPECIFIC_VOLUME /0.001), (xTouch / viewWidth));
-        double pressure = MIN_PRESSURE *Math.pow((MAX_PRESSURE / MIN_PRESSURE), ((viewHeight - yTouch) / viewHeight));
-
-        DecimalFormat numFormatLarge = new DecimalFormat("#0.000");
-        DecimalFormat numFormatSmall = new DecimalFormat("0.0000");
-
-        ((MainActivity) getActivity()).getSpecificVolume().setText(String.valueOf(numFormatSmall.format(specificVolume)));
-        ((MainActivity) getActivity()).getPressure().setText(String.valueOf(numFormatLarge.format(pressure)));
+    /**
+     * Returns an estimated pressure value based on the location of the user's touch.
+     *
+     * @param view The view that is currently being displayed
+     * @param motionEvent The motion event created when the user touches the screen
+     * @return The estimated pressure value
+     */
+    private double calculatePressure(View view, MotionEvent motionEvent) {
+        return MIN_PRESSURE *Math.pow((MAX_PRESSURE / MIN_PRESSURE), ((view.getHeight() - motionEvent.getY()) / view.getHeight()));
     }
 }

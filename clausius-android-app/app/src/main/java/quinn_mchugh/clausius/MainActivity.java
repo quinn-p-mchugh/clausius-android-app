@@ -1,37 +1,41 @@
 package quinn_mchugh.clausius;
 
 import android.graphics.Rect;
+
+import android.os.Bundle;
 import android.os.Handler;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+import java.text.DecimalFormat;
+
 import quinn_mchugh.clausius.Fragments.P_h_Fragment;
 import quinn_mchugh.clausius.Fragments.P_v_Fragment;
 import quinn_mchugh.clausius.Fragments.T_s_Fragment;
-import quinn_mchugh.clausius.Tables.CSVFile;
-
-import com.github.clans.fab.FloatingActionButton;
 
 /**
  * Handles menu button actions, setting of table values, and switching between fragments.
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
-    // Icons used to create cursor
+    /* Icons used to create diagram cursor */
     private ImageView cursorIcon;
     private ImageView cursorIconSmall;
     private ImageView cursorIconTransition;
 
-    // Thermodynamic properties
+    /* Thermodynamic properties */
     private TextView temperature;
     private TextView pressure;
     private TextView specificVolume;
@@ -40,22 +44,33 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TextView entropy;
     private TextView quality;
 
-    // CSV Files and Data
-    private CSVFile satTable;
+    /**
+     * Valid layout positions for the thermodynamic property table displayed on-screen.
+     */
+    private enum LayoutPosition {
+         LEFT, RIGHT
+    }
+
+    /**
+     * Valid tags for fragments in the application.
+     */
+    private enum FragmentTag {
+        T_S_FRAGMENT, P_H_FRAGMENT, P_V_FRAGMENT
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize all fragments. and start with the T-s fragment displayed.
+        /* Initialize all fragments and start with the T-s fragment displayed. */
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, new P_v_Fragment(), "P_v_fragment");
-        fragmentTransaction.add(R.id.fragment_container, new P_h_Fragment(), "P_h_fragment");
-        fragmentTransaction.add(R.id.fragment_container, new T_s_Fragment(), "t_s_fragment").commit();
+        fragmentTransaction.add(R.id.fragment_container, new P_v_Fragment(), FragmentTag.P_V_FRAGMENT.toString());
+        fragmentTransaction.add(R.id.fragment_container, new P_h_Fragment(), FragmentTag.P_H_FRAGMENT.toString());
+        fragmentTransaction.add(R.id.fragment_container, new T_s_Fragment(), FragmentTag.T_S_FRAGMENT.toString()).commit();
 
-        // Initialize floating action menu click listeners.
+        /* Initialize click listeners for floating action button menu. */
         FloatingActionButton t_s_menu_button = findViewById(R.id.t_s_menu_button);
         t_s_menu_button.setOnClickListener(this);
         FloatingActionButton p_h_menu_button = findViewById(R.id.p_h_menu_button);
@@ -63,12 +78,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         FloatingActionButton p_v_menu_button = findViewById(R.id.p_v_menu_button);
         p_v_menu_button.setOnClickListener(this);
 
-        // Initialize cursor icons.
+        /* Initialize cursor icons. */
         cursorIcon = findViewById(R.id.cursor_icon);
         cursorIconSmall = findViewById(R.id.cursor_icon_small);
         cursorIconTransition = findViewById(R.id.cursor_icon_transition);
 
-        // Initialize property values to their corresponding TextViews.
+        /* Initialize property value views */
         temperature = findViewById(R.id.temperature);
         pressure = findViewById(R.id.pressure);
         specificVolume = findViewById(R.id.specificVolume);
@@ -76,14 +91,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         enthalpy = findViewById(R.id.enthalpy);
         entropy = findViewById(R.id.entropy);
         quality = findViewById(R.id.quality);
-    }
-
-    public CSVFile getSatTable() {
-        return satTable;
-    }
-
-    public CSVFile setSatTable(CSVFile satTable) {
-        return this.satTable = satTable;
     }
 
     public TextView getTemperature() {
@@ -146,25 +153,25 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.t_s_menu_button:
-                displayFragment("t_s_fragment");
-                moveLayout(R.id.diagram_selection_menu, "left");
-                moveLayout(R.id.property_table, "left");
+                displayFragment(FragmentTag.P_H_FRAGMENT);
+                moveLayout(R.id.diagram_selection_menu, LayoutPosition.LEFT);
+                moveLayout(R.id.property_table, LayoutPosition.LEFT);
                 break;
             case R.id.p_h_menu_button:
-                displayFragment("p_h_fragment");
-                moveLayout(R.id.diagram_selection_menu, "left");
-                moveLayout(R.id.property_table, "left");
+                displayFragment(FragmentTag.P_H_FRAGMENT);
+                moveLayout(R.id.diagram_selection_menu, LayoutPosition.LEFT);
+                moveLayout(R.id.property_table, LayoutPosition.LEFT);
                 break;
             case R.id.p_v_menu_button:
-                displayFragment("p_v_fragment");
-                moveLayout(R.id.diagram_selection_menu, "right");
-                moveLayout(R.id.property_table, "right");
+                displayFragment(FragmentTag.P_V_FRAGMENT);
+                moveLayout(R.id.diagram_selection_menu, LayoutPosition.RIGHT);
+                moveLayout(R.id.property_table, LayoutPosition.RIGHT);
                 break;
         }
     }
 
     /**
-     * Updates the cursor's location to where the user touches on the screen.
+     * Updates the cursor's location to wherever the user touches on the screen.
      *
      * @param motionEvent The motionEvent created when the user touches the screen.
      */
@@ -177,6 +184,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
         float statusBarHeight = rectangle.top;
 
+        /* Update each cursor image's X & Y position. */
         ImageView[] imageViews = {cursorIcon, cursorIconSmall, cursorIconTransition};
         for (ImageView imageView : imageViews) {
             if (imageView == cursorIconTransition) {
@@ -198,12 +206,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Sets the visibility of cursor icons when the user takes their finger off of the screen.
+     * Sets the visibility of cursor icons when the user takes their finger off the screen.
      */
     public void cursorActionUp() {
         cursorIcon.setVisibility(View.INVISIBLE);
         cursorIconTransition.setVisibility(View.VISIBLE);
 
+        /* Delay is added to create transition effect */
         (new Handler()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -214,50 +223,51 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a fragment onto the screen that possesses a user-specified tag.
+     * Displays a fragment on the screen that possesses a specified tag.
      *
      * @param fragmentTag The tag of the fragment that should be displayed.
      */
-    public void displayFragment(String fragmentTag) {
+    public void displayFragment(FragmentTag fragmentTag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag);
+        Fragment fragment = fragmentManager.findFragmentByTag(fragmentTag.toString());
 
         if (fragment == null) {
             switch (fragmentTag) {
-                case "t_s_fragment":
+                case T_S_FRAGMENT:
                     fragment = new T_s_Fragment();
                     break;
-                case "p_h_fragment":
+                case P_H_FRAGMENT:
                     fragment = new P_h_Fragment();
                     break;
-                case "p_v_fragment":
+                case P_V_FRAGMENT:
                     fragment = new P_v_Fragment();
                     break;
             }
-            fragmentTransaction.add(R.id.fragment_container, fragment, fragmentTag).commit();
-        } else {
-            fragmentTransaction.replace(R.id.fragment_container, fragment, fragmentTag).commit();
+            fragmentTransaction.add(R.id.fragment_container, fragment, fragmentTag.toString()).commit();
+        }
+        else {
+            fragmentTransaction.replace(R.id.fragment_container, fragment, fragmentTag.toString()).commit();
         }
     }
 
     /**
-     * Moves a layout with a user-specified Id to a certain side of the screen.
+     * Moves a layout with a specified ID to a certain side of the screen.
      *
      * @param layoutId The ID of the layout that should be moved
-     * @param direction The side of the screen that the layout should be moved to ("left", "right")
+     * @param layoutPosition The side of the screen that the layout should be moved to
      */
-    public void moveLayout(int layoutId, String direction) {
+    public void moveLayout(int layoutId, LayoutPosition layoutPosition) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) findViewById(layoutId).getLayoutParams();
 
-        switch (direction) {
-            case "left":
+        switch (layoutPosition) {
+            case LEFT:
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, 0);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
                 break;
-            case "right":
+            case RIGHT:
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START, 0);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
@@ -265,6 +275,95 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
         }
         findViewById(layoutId).setLayoutParams(layoutParams);
+    }
+
+    /**
+     * Displays a pressure value on the thermodynamic property table on-screen.
+     *
+     * @param pressure The pressure value to be displayed on-screen
+     */
+    public void displayPressure(double pressure) {
+        DecimalFormat df = new DecimalFormat();
+        if (pressure < 0.01) {
+            df.applyPattern("#0.00000");
+        }
+        else if (pressure < 0.1) {
+            df.applyPattern("#0.0000");
+        }
+        else if (pressure < 1) {
+            df.applyPattern("#0.000");
+        }
+        else {
+            df.applyPattern("#0.00");
+        }
+        getPressure().setText(String.valueOf(df.format(pressure)));
+    }
+
+    /**
+     * Displays a quality value on the thermodynamic property table on-screen..
+     *
+     * @param quality The quality value to be displayed on-screen
+     */
+    public void displayQuality(double quality) {
+        getQuality().setText(String.valueOf((new DecimalFormat("#0.00")).format(quality * 100)));
+    }
+
+    /**
+     * Displays a quality value on the thermodynamic property table on-screen.
+     *
+     * @param specificVolume The specific volume value to be displayed on-screen
+     */
+    public void displaySpecificVolume(double specificVolume) {
+        DecimalFormat df = new DecimalFormat();
+        if (specificVolume < 0.01) {
+            df.applyPattern("#0.00000");
+        }
+        else if (specificVolume < 0.1) {
+            df.applyPattern("#0.0000");
+        }
+        else if (specificVolume < 1) {
+            df.applyPattern("#0.000");
+        }
+        else {
+            df.applyPattern("#0.00");
+        }
+        getSpecificVolume().setText(String.valueOf(df.format(specificVolume)));
+    }
+
+    /**
+     * Displays an internal energy value on the thermodynamic property table on-screen.
+     *
+     * @param internalEnergy The internal energy value to be displayed on-screen
+     */
+    public void displayInternalEnergy(double internalEnergy) {
+        getInternalEnergy().setText(String.valueOf((new DecimalFormat("#0.00")).format(internalEnergy)));
+    }
+
+    /**
+     * Displays a quality value on the thermodynamic property table on-screen.
+     *
+     * @param enthalpy The enthalpy value to be displayed on-screen
+     */
+    public void displayEnthalpy(double enthalpy) {
+        getEnthalpy().setText(String.valueOf((new DecimalFormat("#0.00")).format(enthalpy)));
+    }
+
+    /**
+     * Displays a temperature value on the thermodynamic property table on-screen.
+     *
+     * @param temperature The temperature value to be displayed on-screen
+     */
+    public void displayTemperature(double temperature) {
+        getTemperature().setText(String.valueOf((new DecimalFormat("#0.00")).format(temperature)));
+    }
+
+    /**
+     * Displays an entropy value on the thermodynamic property table on-screen.
+     *
+     * @param entropy The entropy value to be displayed on-screen
+     */
+    public void displayEntropy(double entropy) {
+        getEntropy().setText(String.valueOf((new DecimalFormat("#0.00")).format(entropy)));
     }
 }
 

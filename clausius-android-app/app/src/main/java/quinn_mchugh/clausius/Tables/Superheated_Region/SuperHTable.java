@@ -3,14 +3,19 @@ package quinn_mchugh.clausius.Tables.Superheated_Region;
 import java.io.InputStream;
 
 /**
- * Created by Quinn McHugh on 10/28/2018.
+ * Represents the super_h_table CSV file.
  */
 public class SuperHTable extends SuperTable {
 
-    private Double[][] enthalpyArr;
+    private Double[][] enthalpyArr;     // The array of enthalpy values bounded by the temperature and pressure values in the CSV file
 
+    /**
+     * Required public constructor for SuperHTable class.
+     *
+     * @param inputStream The input stream used to read the super_h_table CSV file
+     */
     public SuperHTable(InputStream inputStream) {
-        super(inputStream);
+        super(inputStream, 255);
         enthalpyArr = super.getGridArr();
     }
 
