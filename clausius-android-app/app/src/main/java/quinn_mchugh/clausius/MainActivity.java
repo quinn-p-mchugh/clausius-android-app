@@ -153,7 +153,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.t_s_menu_button:
-                displayFragment(FragmentTag.P_H_FRAGMENT);
+                displayFragment(FragmentTag.T_S_FRAGMENT);
                 moveLayout(R.id.diagram_selection_menu, LayoutPosition.LEFT);
                 moveLayout(R.id.property_table, LayoutPosition.LEFT);
                 break;
