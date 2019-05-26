@@ -12,7 +12,7 @@ Current methods of retrieving the thermodynamic properties of water at a given t
 Clausius was first developed as an iOS app. This project seeks to develop an Android version of that app to enable use on a wider range of devices.
 
 ## Disclaimer
-Clausius should be only be used as an educational tool for practicing thermodynamics calculations or understanding the relationships between properties. It should NOT be used in a professional setting to inform conclusions about any kind of thermodynamic process. To calculate thermophysical properties of various fluids, we recommend using the [Thermophysical Properties of Fluid Systems Calculator from the National Institute of Standards and Technology (NIST)](https://webbook.nist.gov/chemistry/fluid/) instead.
+Clausius should be only be used as an educational tool for practicing thermodynamics calculations or understanding the relationships between properties. It should NOT be used in a professional setting to inform conclusions about any kind of thermodynamic process. To calculate thermophysical properties of various fluids, we recommend using the [Thermophysical Properties of Fluid Systems Calculator](https://webbook.nist.gov/chemistry/fluid/) from the National Institute of Standards and Technology (NIST) instead.
 
 ## Build Status
 This app is currently under development. To see the a list of project to-dos, please refer to the [To Do section](#-to-do).
