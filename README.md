@@ -1,12 +1,18 @@
 ![Clausius Cover Photo](https://raw.githubusercontent.com/Quinn-P-McHugh/clausius-android-app/master/screenshots/Clausius-Cover-Photo.jpg)
 
 # Clausius
-Clausius is a visual and intuitive Android app enabling students, teachers, and engineers alike to acquire the thermodynamic properties of water for a given thermodynamic state with just the touch of a finger.
+Clausius is a visual and intuitive Android app enabling students, teachers, and engineers alike to acquire the thermodynamic properties of water for a given thermodynamic state with just the touch of a finger. By using the app with a tablet device, users can touch an on-screen temperature-entropy chart and instantly retrieve all the thermodynamic properties of water associated with that point.
 
 ## Motivation
-Although precise, current methods of retrieving thermodynamic properties of a material at a given thermodynamic state are tedious at best. 
+Current methods of retrieving the thermodynamic properties of water at a given thermodynamic state are tedious at best. To retrieve these values, one can use the following methods:
+* Refer to a [temperature-entropy diagram](https://en.wikipedia.org/wiki/Temperature%E2%80%93entropy_diagram) and manually estimate or calculate the thermodynamic properties, such as temperature and enthalpy, at a specified point. -- This method is good for developing an understanding of the relationships between properties, but hand calculation is often slow.
+* Refer to [steam tables](http://thermopedia.com/content/1150Begal), a collection of several large tables containing thermodynamic properties associated with a range of thermodynamic states -- although accurate, this method does not provide a visual for developing a good understanding of the relationship between properties.
+* Use an online thermodynamic property calculate -- easy to do but again, this does not does not provide a visual for developing a good understanding of the relationship between properties.
 
 In addition, Clausius currently exists as an iOS app but it has not been ported to Android. This project seeks to make that happen.
+
+## Disclaimer
+Clausius should be only be used as an educational tool for practicing thermodynamics calculatoins. It should NOT be used in a professional setting to inform conclusions about any kind of thermodynamic process. To calculate thermophysical properties of various fluids, we recommend using the [NIST database](https://webbook.nist.gov/chemistry/fluid/) instead.
 
 ## Build Status
 This app is currently under development. To see the project
