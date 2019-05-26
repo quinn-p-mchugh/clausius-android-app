@@ -6,16 +6,16 @@ Clausius is a visual and intuitive Android app enabling students, teachers, and 
 ## Motivation
 Current methods of retrieving the thermodynamic properties of water at a given thermodynamic state are tedious at best. To retrieve these values, one can use the following methods:
 * Refer to a [temperature-entropy diagram](https://en.wikipedia.org/wiki/Temperature%E2%80%93entropy_diagram) and manually estimate or calculate the thermodynamic properties, such as temperature and enthalpy, at a specified point. -- This method is good for developing an understanding of the relationships between properties, but hand calculation is often slow.
-* Refer to [steam tables](http://thermopedia.com/content/1150Begal), a collection of several large tables containing thermodynamic properties associated with a range of thermodynamic states -- although accurate, this method does not provide a visual for developing a good understanding of the relationship between properties.
-* Use an online thermodynamic property calculate -- easy to do but again, this does not does not provide a visual for developing a good understanding of the relationship between properties.
+* Refer to [steam tables](http://thermopedia.com/content/1150Begal), a collection of several large tables containing thermodynamic properties associated with a range of thermodynamic states -- Although accurate, this method does not provide a visual for developing a good understanding of the relationships between properties and only values for specific thermodynamic states can be retrieved.
+* Use an [online thermodynamic property calculator](https://webbook.nist.gov/chemistry/fluid/) -- Highly accurate and flexible, but again, this does not does not provide a visual for developing a good understanding of the relationship between properties.
 
-In addition, Clausius currently exists as an iOS app but it has not been ported to Android. This project seeks to make that happen.
+Clausius was first developed as an iOS app. This project seeks to develop an Android version of that app to enable use on a wider range of devices.
 
 ## Disclaimer
-Clausius should be only be used as an educational tool for practicing thermodynamics calculatoins. It should NOT be used in a professional setting to inform conclusions about any kind of thermodynamic process. To calculate thermophysical properties of various fluids, we recommend using the [NIST database](https://webbook.nist.gov/chemistry/fluid/) instead.
+Clausius should be only be used as an educational tool for practicing thermodynamics calculations or understanding the relationships between properties. It should NOT be used in a professional setting to inform conclusions about any kind of thermodynamic process. To calculate thermophysical properties of various fluids, we recommend using the [Thermophysical Properties of Fluid Systems Calculator from the National Institute of Standards and Technology (NIST)](https://webbook.nist.gov/chemistry/fluid/) instead.
 
 ## Build Status
-This app is currently under development. To see the project
+This app is currently under development. To see the a list of project to-dos, please refer to the [To Do section](#-to-do).
 
 ## Code Style
 This project uses the [Google's Java Style Guide](https://google.github.io/styleguide/javaguide.html#s7.1-javadoc-formatting) as a guideline.
@@ -31,7 +31,6 @@ Using GitHub's [GitHub Desktop](https://desktop.github.com/) or [Git](https://gi
 
 For more information, please take a look at [this article](https://code.tutsplus.com/tutorials/working-with-git-in-android-studio--cms-30514) which provides a basic overview of version control in Android Studio.
 
-## For Developers
 
 
 ## To Do
@@ -41,6 +40,9 @@ For more information, please take a look at [this article](https://code.tutsplus
 - [ ] Resolve edge cases with temperature-entropy chart
 - [ ] Implement P-h diagram into app
 - [ ] Implement P-v diagram into app
+
+## For Developers
+
 
 ## Contribute
 To contribute to this project, please refer to the [contributing guidelines](https://github.com/Quinn-P-McHugh/clausius-android-app/blob/master/CONTRIBUTING.md)
