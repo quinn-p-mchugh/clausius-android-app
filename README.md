@@ -1,60 +1,50 @@
-#Update Project title
+![Clausius Cover Photo](https://raw.githubusercontent.com/Quinn-P-McHugh/clausius-android-app/master/screenshots/Clausius-Cover-Photo.jpg)
+
+# Clausius
 Clausius is a visual and intuitive Android app enabling students, teachers, and engineers alike to acquire the thermodynamic properties of water for a given thermodynamic state with just the touch of a finger.
 
 ## Motivation
-Current methods of retrieving thermodnynamic prperties 
+Although precise, current methods of retrieving thermodynamic properties of a material at a given thermodynamic state are tedious at best. 
 
-In addition, Clausius currently exists as an iOS app but it has not been ported to Andoir
+In addition, Clausius currently exists as an iOS app but it has not been ported to Android. This project seeks to make that happen.
 
-## Build status
-Build status of continus integration i.e. travis, appveyor etc. Ex. - 
+## Build Status
+This app is currently under development. To see the project
 
-[![Build Status](https://travis-ci.org/akashnimare/foco.svg?branch=master)](https://travis-ci.org/akashnimare/foco)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/akashnimare/foco?branch=master&svg=true)](https://ci.appveyor.com/project/akashnimare/foco/branch/master)
-
-## Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
-
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+## Code Style
+This project uses the [Google's Java Style Guide](https://google.github.io/styleguide/javaguide.html#s7.1-javadoc-formatting) as a guideline.
  
 ## Screenshots
-Include logo/demo screenshot etc.
-
-## Tech/framework used
-Ex. -
-
-<b>Built with</b>
-- [Electron](https://electron.atom.io)
+![GitHub Logo](/images/logo.png)
 
 ## Features
-What makes your project stand out?
-
-## Code Example
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+* Ability
 
 ## Installation
-Provide step by step series of examples and explanations about how to get a development env running.
+Using GitHub's [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/), clone this repository to your local computer and open it using the [Android Studio IDE](https://developer.android.com/studio). From there, you can make changes to your local project and commit changes using the "VCS" menu in Android Studio.
 
-## API Reference
+For more information, please take a look at [this article](https://code.tutsplus.com/tutorials/working-with-git-in-android-studio--cms-30514) which provides a basic overview of version control in Android Studio.
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+## For Developers
 
-## Tests
-Describe and show how to run the tests with code examples.
 
-## How to use?
-If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
+## To Do
+
+- [X] Write this README
+- [ ] Create floating menu button as a separate branch
+- [ ] Resolve edge cases with temperature-entropy chart
+- [ ] Implement P-h diagram into app
+- [ ] Implement P-v diagram into app
 
 ## Contribute
+To contribute to this project, please refer to the [contributing guidelines](https://github.com/Quinn-P-McHugh/clausius-android-app/blob/master/CONTRIBUTING.md)
 
-Let people know how they can contribute into your project. A [contributing guideline](https://github.com/zulip/zulip-electron/blob/master/CONTRIBUTING.md) will be a big plus.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Credits
-Give proper credits. This could be a link to any repo which inspired you to build this project, any blogposts or links to people who contrbuted in this project. 
+Special thanks to Dr. Smitesh Bakrania for coming up with the idea for this app and providing the thermodynamic property data necessary for implementing the app's basic functionality.
 
-#### Anything else that seems useful
+Thanks to [Quinn McHugh](https://github.com/Quinn-P-McHugh) for creating the initial version of the app.
 
 ## License
-A short snippet describing the license (MIT, Apache etc)
-
-MIT © [Yourname]()
+Although this project is open source, it does not have a license at this time.
