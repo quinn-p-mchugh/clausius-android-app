@@ -23,28 +23,38 @@ public class SuperSTable extends SuperTable {
         return entropyArr;
     }
 
-    public double calculatePressure (double temperature, double entropy) {
-        int lowerTemperatureIndex = findLowerIndex(temperature, getTemperatures());
-        int higherTemperatureIndex = findHigherIndex(temperature, getTemperatures());
+    /**
+     *
+     * @param temperature
+     * @param entropy
+     * @return The pressure in [MPa]
+     */
+    public Double calculatePressure (double temperature, double entropy) {
+        try {
+            int lowerTemperatureIndex = findLowerIndex(temperature, getTemperatures());
+            int higherTemperatureIndex = findHigherIndex(temperature, getTemperatures());
 
-        double lowerTemperature = getTemperatures()[lowerTemperatureIndex];
-        double higherTemperature = getTemperatures()[higherTemperatureIndex];
+            double lowerTemperature = getTemperatures()[lowerTemperatureIndex];
+            double higherTemperature = getTemperatures()[higherTemperatureIndex];
 
-        double percentage = (temperature - lowerTemperature) / (higherTemperature - lowerTemperature);
-        Double[] lowerEntropyRow = entropyArr[lowerTemperatureIndex];
-        Double[] higherEntropyRow = entropyArr[higherTemperatureIndex];
+            double percentage = (temperature - lowerTemperature) / (higherTemperature - lowerTemperature);
+            Double[] lowerEntropyRow = entropyArr[lowerTemperatureIndex];
+            Double[] higherEntropyRow = entropyArr[higherTemperatureIndex];
 
-        Double[] estimatedEntropyRow = estimateRow(percentage, lowerEntropyRow, higherEntropyRow);
+            Double[] estimatedEntropyRow = estimateRow(percentage, lowerEntropyRow, higherEntropyRow);
 
-        int lowerEntropyIndex = findLowerIndex(entropy, estimatedEntropyRow);
-        int higherEntropyIndex = findHigherIndex(entropy, estimatedEntropyRow);
+            int lowerEntropyIndex = findLowerIndex(entropy, estimatedEntropyRow);
+            int higherEntropyIndex = findHigherIndex(entropy, estimatedEntropyRow);
 
-        double lowerIndexEntropy = estimatedEntropyRow[lowerEntropyIndex];
-        double higherIndexEntropy = estimatedEntropyRow[higherEntropyIndex];
-        double lowerIndexPressure = getPressures()[lowerEntropyIndex];
-        double higherIndexPressure = getPressures()[higherEntropyIndex];
+            double lowerIndexEntropy = estimatedEntropyRow[lowerEntropyIndex];
+            double higherIndexEntropy = estimatedEntropyRow[higherEntropyIndex];
+            double lowerIndexPressure = getPressures()[lowerEntropyIndex];
+            double higherIndexPressure = getPressures()[higherEntropyIndex];
 
-        return estimatePropertyValue(lowerIndexEntropy, higherIndexEntropy, entropy, lowerIndexPressure, higherIndexPressure) / 1000; // MPa
+            return estimatePropertyValue(lowerIndexEntropy, higherIndexEntropy, entropy, lowerIndexPressure, higherIndexPressure) / 1000; // MPa
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

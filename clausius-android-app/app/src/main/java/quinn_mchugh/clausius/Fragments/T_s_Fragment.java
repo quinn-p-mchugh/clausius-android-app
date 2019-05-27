@@ -18,6 +18,7 @@ import quinn_mchugh.clausius.R;
 import quinn_mchugh.clausius.Tables.SatTable;
 import quinn_mchugh.clausius.Tables.Superheated_Region.SuperHTable;
 import quinn_mchugh.clausius.Tables.Superheated_Region.SuperSTable;
+import quinn_mchugh.clausius.Tables.Superheated_Region.SuperTable;
 import quinn_mchugh.clausius.Tables.Superheated_Region.SuperVTable;
 
 /**
@@ -29,6 +30,9 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
     private static final double MIN_ENTROPY = 0;            // [kJ/kg/K] The minimum entropy value on the T-s diagram
     private static final double MAX_TEMPERATURE = 702.5;    // [°C] The maximum temperature value on the T-s diagram
     private static final double MIN_TEMPERATURE = 0;        // [°C] The minimum temperature value on the T-s diagram
+
+    private static final double SAT_TABLE_TEMPERATURE_MINIMUM = 0.13; // [°C] The minimum temperature value defined in the sat_table CSV file.
+    private static final double SAT_TABLE_TEMPERATURE_MAXIMUM = 373.9;  // [°C] The maximum temperature value value defined in the sat_table CSV file.
 
     private SatTable satTable;
     private SuperSTable superSTable;
@@ -97,43 +101,48 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
     private void setDiagramValues(View view, MotionEvent motionEvent) {
         double entropy = calculateEntropy(view, motionEvent);
         double temperature = calculateTemperature(view, motionEvent);
-        if (temperature >= 0) {
-            ((MainActivity) getActivity()).displayTemperature(temperature);
-        }
-        if (entropy >= 0) {
-            ((MainActivity) getActivity()).displayEntropy(entropy);
-        }
 
-        double quality = 0;
-        double pressure = 0;
-        double specificVolume = 0;
-        double internalEnergy = 0;
-        double enthalpy = 0;
-        // TODO: Change "temperature >= 0.13" to "temperature >= 0"
-        // TODO: and add Sat Stable values for when temperature = 0
-        if (temperature >= 0.13 && temperature < 374) {
-            /* User's touch is within the saturated vapor dome... */
+        if (touchOnDiagram(temperature, entropy)) {
+            double quality = 0;
+            double pressure = 0;
+            double specificVolume = 0;
+            double internalEnergy = 0;
+            double enthalpy = 0;
             if (inSaturatedRegion(temperature, entropy)) {
                 quality = satTable.calculateQuality(temperature, entropy);
+                pressure = satTable.calculatePressure(temperature);
+                specificVolume = satTable.calculateSpecificVolume(temperature, quality);
+                internalEnergy = satTable.calculateInternalEnergy(temperature, quality);
+                enthalpy = satTable.calculateEnthalpy(temperature, quality);
             }
-            /* Users touch is within compressed liquid region... */
-            if (inCompressedLiquidRegion(temperature, entropy)) {
+            else if (inCompressedLiquidRegion(temperature, entropy)) {
                 quality = 0;
+                pressure = satTable.calculatePressure(temperature);
+                specificVolume = satTable.calculateSpecificVolume(temperature, quality);
+                internalEnergy = satTable.calculateInternalEnergy(temperature, quality);
+                enthalpy = satTable.calculateEnthalpy(temperature, quality);
+            } else {
+                pressure = superSTable.calculatePressure(temperature, entropy);
+                specificVolume = superVTable.calculateSpecificVolume(temperature, pressure);
+                enthalpy = superHTable.calculateEnthalpy(temperature, pressure);
+                internalEnergy = SuperTable.calculateInternalEnergy(pressure, specificVolume, enthalpy);
             }
-            pressure = satTable.calculatePressure(temperature);
-            specificVolume = satTable.calculateSpecificVolume(temperature, quality);
-            internalEnergy = satTable.calculateInternalEnergy(temperature, quality);
-            enthalpy = satTable.calculateEnthalpy(temperature, quality);
+            ((MainActivity) getActivity()).displayTemperature(temperature);
+            ((MainActivity) getActivity()).displayEntropy(entropy);
+            ((MainActivity) getActivity()).displayQuality(quality);
+            ((MainActivity) getActivity()).displayPressure(pressure);
+            ((MainActivity) getActivity()).displaySpecificVolume(specificVolume);
+            ((MainActivity) getActivity()).displayInternalEnergy(internalEnergy);
+            ((MainActivity) getActivity()).displayEnthalpy(enthalpy);
+        } else {
+            ((MainActivity) getActivity()).getTemperature().setText("---");
+            ((MainActivity) getActivity()).getEntropy().setText("---");
+            ((MainActivity) getActivity()).getQuality().setText("---");
+            ((MainActivity) getActivity()).getPressure().setText("---");
+            ((MainActivity) getActivity()).getSpecificVolume().setText("---");
+            ((MainActivity) getActivity()).getInternalEnergy().setText("---");
+            ((MainActivity) getActivity()).getEnthalpy().setText("---");
         }
-        else {
-            pressure = superSTable.calculatePressure(temperature, entropy);
-        }
-
-        ((MainActivity) getActivity()).displayQuality(quality);
-        ((MainActivity) getActivity()).displayPressure(pressure);
-        ((MainActivity) getActivity()).displaySpecificVolume(specificVolume);
-        ((MainActivity) getActivity()).displayInternalEnergy(internalEnergy);
-        ((MainActivity) getActivity()).displayEnthalpy(enthalpy);
     }
 
     /**
@@ -144,9 +153,13 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
      * @return Whether or not the user's touch is within the saturated vapor dome
      */
     private boolean inSaturatedRegion(double temperature, double entropy) {
-        double s_g = satTable.calculateS_g(temperature);
-        double s_f = satTable.calculateS_f(temperature);
-        return entropy < s_g && entropy > s_f;
+        if (temperature >= SAT_TABLE_TEMPERATURE_MINIMUM && temperature <= SAT_TABLE_TEMPERATURE_MAXIMUM) {
+            double s_g = satTable.calculateS_g(temperature);
+            double s_f = satTable.calculateS_f(temperature);
+            return entropy < s_g && entropy > s_f;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -157,8 +170,12 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
      * @return Whether or not the user's touch is within the compressed liquid region
      */
     private boolean inCompressedLiquidRegion(double temperature, double entropy) {
-        double s_f = satTable.calculateS_f(temperature);
-        return entropy <= s_f;
+        if (temperature >= SAT_TABLE_TEMPERATURE_MINIMUM && temperature <= SAT_TABLE_TEMPERATURE_MAXIMUM) {
+            double s_f = satTable.calculateS_f(temperature);
+            return entropy <= s_f;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -181,5 +198,9 @@ public class T_s_Fragment extends Fragment implements View.OnTouchListener {
      */
     private double calculateTemperature(View view, MotionEvent motionEvent) {
         return ((view.getHeight() - motionEvent.getY()) / view.getHeight()) * (MAX_TEMPERATURE - MIN_TEMPERATURE);
+    }
+
+    private boolean touchOnDiagram(double temperature, double entropy) {
+        return superSTable.calculatePressure(temperature, entropy) != null;
     }
 }

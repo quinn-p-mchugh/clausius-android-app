@@ -22,4 +22,14 @@ public class SuperVTable extends SuperTable {
     public Double[][] getSpecificVolArr() {
         return specificVolArr;
     }
+
+    /**
+     *
+     * @param temperature [degrees C]
+     * @param pressure [MPa]
+     * @return The specific volume in [m^3/kg]
+     */
+    public Double calculateSpecificVolume (double temperature, double pressure) {
+        return calculateGridValue(temperature, pressure, getSpecificVolArr());
+    }
 }

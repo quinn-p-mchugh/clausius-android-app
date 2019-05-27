@@ -116,4 +116,39 @@ public class SuperTable extends CSVFile {
     protected int findLowerIndex(double value, Double[] array) {
         return findHigherIndex(value, array) - 1;
     }
+
+    /**
+     *
+     * @param temperature [degrees C]
+     * @param pressure [MPa]
+     * @return The specific volume in [m^3/kg]
+     */
+    protected Double calculateGridValue (double temperature, double pressure, Double[][] gridArr) {
+        int lowerTemperatureIndex = findLowerIndex(temperature, getTemperatures());
+        int higherTemperatureIndex = findHigherIndex(temperature, getTemperatures());
+        double lowerTemperature = getTemperatures()[lowerTemperatureIndex];
+        double higherTemperature = getTemperatures()[higherTemperatureIndex];
+
+        pressure *= 1000; // [kPa]
+        int lowerPressureIndex = findLowerIndex(pressure, getPressures());
+        int higherPressureIndex = findHigherIndex(pressure, getPressures());
+        double lowerPressure = getPressures()[lowerPressureIndex];
+        double higherPressure = getPressures()[higherPressureIndex];
+
+        double gridValueLowerIndex = estimatePropertyValue(lowerTemperature, higherTemperature, temperature, gridArr[lowerTemperatureIndex][lowerPressureIndex], gridArr[higherTemperatureIndex][lowerPressureIndex]);
+        double gridValueHigherIndex = estimatePropertyValue(lowerTemperature, higherTemperature, temperature, gridArr[lowerTemperatureIndex][higherPressureIndex], gridArr[higherTemperatureIndex][higherPressureIndex]);
+
+        return estimatePropertyValue(lowerPressure, higherPressure, pressure, gridValueLowerIndex, gridValueHigherIndex);
+    }
+
+    /**
+     *
+     * @param pressure [MPa]
+     * @param specificVolume
+     * @param enthalpy
+     */
+    public static double calculateInternalEnergy(double pressure, double specificVolume, double enthalpy) {
+        pressure *= pressure; // [kPa]
+        return enthalpy - pressure*specificVolume;
+    }
 }

@@ -22,4 +22,14 @@ public class SuperHTable extends SuperTable {
     public Double[][] getEnthalpyArr() {
         return enthalpyArr;
     }
+
+    /**
+     *
+     * @param temperature
+     * @param pressure [MPa]
+     * @return The enthalpy in
+     */
+    public Double calculateEnthalpy (double temperature, double pressure) {
+        return calculateGridValue(temperature, pressure, getEnthalpyArr());
+    }
 }
