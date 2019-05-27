@@ -15,7 +15,7 @@ public class SuperHTable extends SuperTable {
      * @param inputStream The input stream used to read the super_h_table CSV file
      */
     public SuperHTable(InputStream inputStream) {
-        super(inputStream, 255);
+        super(inputStream, 451);
         enthalpyArr = super.getGridArr();
     }
 
