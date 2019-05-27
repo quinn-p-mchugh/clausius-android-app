@@ -9,21 +9,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="183e4ea8-ad0a-43ac-80ce-257dc66016e5" name="Default" comment="Fixed fragment tag issue">
+    <list default="true" id="183e4ea8-ad0a-43ac-80ce-257dc66016e5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Fragments/T_s_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Fragments/T_s_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperHTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperHTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperSTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperSTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperVTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperVTable.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/app/build/intermediates/annotation_processor_list/" />
@@ -107,8 +102,8 @@
       <file leaf-file-name="SuperTable.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperTable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="151" column="44" selection-start-line="151" selection-start-column="44" selection-end-line="151" selection-end-column="44" />
+            <state relative-caret-position="139">
+              <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
               <folding>
                 <element signature="e#1128#1129#0" expanded="true" />
                 <element signature="e#1160#1161#0" expanded="true" />
@@ -181,8 +176,8 @@
       <find>700</find>
       <find>estimateproper</find>
       <find>estimateproperty</find>
-      <find>estimaterow</find>
       <find>calculateinternal</find>
+      <find>estimaterow</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2686,7 +2681,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558870705521</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Resolved edge cases">
+      <created>1558944646232</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1558944646232</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2704,16 +2706,17 @@
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info id="Build Variants" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50309277" side_tool="true" visible="true" weight="0.39951864" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50378007" side_tool="true" visible="true" weight="0.39951864" />
       <window_info anchor="bottom" id="Logcat" order="7" sideWeight="0.4941581" weight="0.43561974" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.63439304" weight="0.32885087" />
       <window_info id="Structure" order="1" sideWeight="0.501002" side_tool="true" visible="true" weight="0.24948454" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.4969072" visible="true" weight="0.39951864" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49621993" visible="true" weight="0.39951864" />
       <window_info anchor="right" id="Code Iris" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4969072" weight="0.32972324" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49965635" weight="0.32972324" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
@@ -2722,7 +2725,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49896908" weight="0.32972324" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Captures" order="2" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.498998" visible="true" weight="0.24948454" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.498998" visible="true" weight="0.24948454" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -2752,7 +2755,6 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Build" order="7" sideWeight="0.63573885" weight="0.32972324" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49965635" visible="true" weight="0.32972324" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -2767,18 +2769,11 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="Fixed fragment tag issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed fragment tag issue" />
+    <MESSAGE value="Resolved edge cases" />
+    <option name="LAST_COMMIT_MESSAGE" value="Resolved edge cases" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperTable.java</url>
-          <line>151</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -2794,7 +2789,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -3133,13 +3128,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperVTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Fragments/T_s_Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -3161,10 +3149,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperVTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/quinn_mchugh/clausius/Tables/Superheated_Region/SuperTable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="151" column="44" selection-start-line="151" selection-start-column="44" selection-end-line="151" selection-end-column="44" />
+        <state relative-caret-position="139">
+          <caret line="131" column="34" selection-start-line="131" selection-start-column="34" selection-end-line="131" selection-end-column="34" />
           <folding>
             <element signature="e#1128#1129#0" expanded="true" />
             <element signature="e#1160#1161#0" expanded="true" />

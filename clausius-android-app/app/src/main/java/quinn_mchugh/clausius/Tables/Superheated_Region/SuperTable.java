@@ -129,7 +129,7 @@ public class SuperTable extends CSVFile {
         double lowerTemperature = getTemperatures()[lowerTemperatureIndex];
         double higherTemperature = getTemperatures()[higherTemperatureIndex];
 
-        pressure *= 1000; // [kPa]
+        pressure = pressure * 1000; // [kPa]
         int lowerPressureIndex = findLowerIndex(pressure, getPressures());
         int higherPressureIndex = findHigherIndex(pressure, getPressures());
         double lowerPressure = getPressures()[lowerPressureIndex];
@@ -148,7 +148,8 @@ public class SuperTable extends CSVFile {
      * @param enthalpy
      */
     public static double calculateInternalEnergy(double pressure, double specificVolume, double enthalpy) {
-        pressure *= pressure; // [kPa]
+        pressure = pressure * 1000; // [kPa]
+        double internalEnergy = enthalpy - pressure*specificVolume;
         return enthalpy - pressure*specificVolume;
     }
 }
