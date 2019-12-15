@@ -8,7 +8,6 @@ import java.io.InputStream;
 public class CSVFile {
 
     protected InputStream inputStream;
-    //private HashMap<String, List<Double>> data;
 
     /**
      * Required public constructor for CSVFile class.
@@ -17,56 +16,14 @@ public class CSVFile {
      */
     public CSVFile(InputStream inputStream) {
         this.inputStream = inputStream;
-        //data = readData();
     }
-
-    /**
-     * Reads data from a CSV file. Assumes column headers are the first line of the file.
-     *
-     * @return A HashMap with the CSV file column headers as the keys and the column data stored as ArrayLists as the values.
-     */
-    /*public HashMap<String, List<Double>> readData() {
-        HashMap<String, List<Double>> data;
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            data = new HashMap<String, List<Double>>();
-            try {
-                // Store headers in CSV file as keys in HashMap
-                String line = reader.readLine();
-                String[] headers = line.split(",");
-                for (String header : headers) {
-                    data.put(header, new ArrayList<Double>());
-                }
-
-                // Store all subsequent data into ArrayLists
-                while ((line = reader.readLine()) != null) {
-                    String[] tokens = line.split(",");
-                    Double[] dblTokens = toDoubleArray(tokens);
-                    for (int i = 0; i < tokens.length; i++) {
-                        data.get(headers[i]).add(dblTokens[i]);
-                    }
-                }
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Error reading line in CSV file.", e);
-            }
-            finally {
-                reader.close();
-            }
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Failed to read CSV file.", e);
-
-        }
-        return data;
-    }*/
 
     /**
      * Converts a array of strings to an array of doubles by attempting to parsing each element to
      * a double.
      *
      * @param strArr An array of strings to be converted
-     * @return An array of doubles
+     * @return An array of Doubles
      */
     public Double[] toDoubleArray(String[] strArr) {
         Double[] dblArr = new Double[strArr.length];

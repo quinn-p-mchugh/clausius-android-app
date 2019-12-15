@@ -41,7 +41,7 @@ public class SuperTable extends CSVFile {
         return gridArr;
     }
 
-    /* TODO: Write a program to parse CSV files and make them into Java array format, such that the super and saturated tables can be hardcoded into the application, as opposed to read from a CSV file each time the application loads. */
+    /* TODO: Write a method to parse CSV files and make them into Java array format, such that the super and saturated tables can be hardcoded into the application, as opposed to read from a CSV file each time the application loads. */
     /**
      * Reads data from the SatTable CSV file and stores it in appropriate data structures.
      */
@@ -63,6 +63,7 @@ public class SuperTable extends CSVFile {
                     Double[] rowValues = toDoubleArray(line.split(","));
 
                     temperatures[row] = rowValues[0];   // Store first column value in temperatures array
+
                     /* Store all values not in the first column in the gridArr */
                     for (int i = 1; i < rowValues.length; i++) {
                         gridArr[row][i-1] = rowValues[i];
@@ -118,10 +119,11 @@ public class SuperTable extends CSVFile {
     }
 
     /**
+     * Calculates the value in between a grid of 4 values.
      *
-     * @param temperature [degrees C]
+     * @param temperature [°C]
      * @param pressure [MPa]
-     * @return The specific volume in [m^3/kg]
+     * @return The specific volume [m^3/kg]
      */
     protected Double calculateGridValue (double temperature, double pressure, Double[][] gridArr) {
         int lowerTemperatureIndex = findLowerIndex(temperature, getTemperatures());
@@ -142,10 +144,12 @@ public class SuperTable extends CSVFile {
     }
 
     /**
+     * Calculates internal energy, given pressure, specific volume, and enthalpy.
      *
      * @param pressure [MPa]
-     * @param specificVolume
-     * @param enthalpy
+     * @param specificVolume [m^3/kg]
+     * @param enthalpy [kJ/kg]
+     * @return The calculate internal energy [kJ/kg]
      */
     public static double calculateInternalEnergy(double pressure, double specificVolume, double enthalpy) {
         pressure = pressure * 1000; // [kPa]

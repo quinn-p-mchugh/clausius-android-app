@@ -24,7 +24,7 @@ public class SuperHTable extends SuperTable {
     }
 
     /**
-     *
+     * Calculates the enthalpy value using the super_h_table CSV file, given temperature and entropy.
      * @param temperature
      * @param pressure [MPa]
      * @return The enthalpy in

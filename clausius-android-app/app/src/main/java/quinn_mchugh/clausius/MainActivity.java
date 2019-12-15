@@ -48,16 +48,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      * Valid layout positions for the thermodynamic property table displayed on-screen.
      */
     private enum LayoutPosition {
-         LEFT, RIGHT
+         LEFT,
+         RIGHT
     }
 
     /**
      * Valid tags for fragments in the application.
      */
     private enum FragmentTag {
-        T_S_FRAGMENT, P_H_FRAGMENT, P_V_FRAGMENT
+        T_S_FRAGMENT,
+        P_H_FRAGMENT,
+        P_V_FRAGMENT
     }
 
+    /*
+     * Initializes on-screen elements, listeners for button clicks, fragments, and more when the app is loaded.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +155,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         this.quality = quality;
     }
 
+    /**
+     * Determines what should happen when the user touches various elements on the screen
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -171,7 +180,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Updates the cursor's location to wherever the user touches on the screen.
+     * Moves the cursor to wherever the user touches on the screen.
      *
      * @param motionEvent The motionEvent created when the user touches the screen.
      */
@@ -223,7 +232,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a fragment on the screen that possesses a specified tag.
+     * Displays a fragment with a specified tag on-screen.
      *
      * @param fragmentTag The tag of the fragment that should be displayed.
      */
@@ -300,7 +309,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a quality value on the thermodynamic property table on-screen..
+     * Changes the on-screen quality value in the thermodynamic property table to a user-specified value.
      *
      * @param quality The quality value to be displayed on-screen
      */
@@ -309,7 +318,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a quality value on the thermodynamic property table on-screen.
+     * Changes the on-screen specific volume value in the thermodynamic property table to a user-specified value.
      *
      * @param specificVolume The specific volume value to be displayed on-screen
      */
@@ -331,7 +340,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays an internal energy value on the thermodynamic property table on-screen.
+     * Changes the on-screen internal energy value in the thermodynamic property table to a user-specified value.
      *
      * @param internalEnergy The internal energy value to be displayed on-screen
      */
@@ -340,7 +349,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a quality value on the thermodynamic property table on-screen.
+     * Changes the on-screen enthalpy value in the thermodynamic property table to a user-specified value.
      *
      * @param enthalpy The enthalpy value to be displayed on-screen
      */
@@ -349,7 +358,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays a temperature value on the thermodynamic property table on-screen.
+     * Changes the on-screen temperature value in the thermodynamic property table to a user-specified value.
      *
      * @param temperature The temperature value to be displayed on-screen
      */
@@ -358,7 +367,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**
-     * Displays an entropy value on the thermodynamic property table on-screen.
+     * Changes the on-screen entropy value in the thermodynamic property table to a user-specified value.
      *
      * @param entropy The entropy value to be displayed on-screen
      */
@@ -366,4 +375,3 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getEntropy().setText(String.valueOf((new DecimalFormat("#0.00")).format(entropy)));
     }
 }
-
