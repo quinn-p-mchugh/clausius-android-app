@@ -26,7 +26,7 @@ public class SuperVTable extends SuperTable {
     /**
      * Calculates specific volume using the super_v_table CSV file, given temperature and pressure.
      *
-     * @param temperature [degrees C]
+     * @param temperature [°C]
      * @param pressure [MPa]
      * @return The calculated specific volume [m^3/kg]
      */
